@@ -10,21 +10,21 @@ import (
 // Cache is thread-safe in-memory state manager.
 type Cache struct {
 	state map[string]interface{}
-	mutex *sync.RWMutex
+	sync.RWMutex
 }
 
 // Set will insert a new key-value record to state map.
 func (c *Cache) Set(key string, val interface{}) {
-	c.mutex.Lock()
+	c.Lock()
 	c.state[key] = val
-	c.mutex.Unlock()
+	c.Unlock()
 }
 
 // Get will retrieve value under corresponding key from state map.
 func (c *Cache) Get(key string) (interface{}, error) {
-	c.mutex.RLock()
+	c.RLock()
 	val := c.state[key]
-	c.mutex.RUnlock()
+	c.RUnlock()
 	if val != nil {
 		return val, nil
 	}
@@ -34,8 +34,8 @@ func (c *Cache) Get(key string) (interface{}, error) {
 // NewCache constructs empty cache object.
 func NewCache() *Cache {
 	return &Cache{
-		state: make(map[string]interface{}),
-		mutex: &sync.RWMutex{},
+		make(map[string]interface{}),
+		sync.RWMutex{},
 	}
 }
 
