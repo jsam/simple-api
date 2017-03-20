@@ -9,8 +9,8 @@ import (
 
 // Cache is thread-safe in-memory state manager.
 type Cache struct {
+	*sync.RWMutex
 	state map[string]interface{}
-	sync.RWMutex
 }
 
 // Set will insert a new key-value record to state map.
@@ -34,8 +34,8 @@ func (c *Cache) Get(key string) (interface{}, error) {
 // NewCache constructs empty cache object.
 func NewCache() *Cache {
 	return &Cache{
+		&sync.RWMutex{},
 		make(map[string]interface{}),
-		sync.RWMutex{},
 	}
 }
 

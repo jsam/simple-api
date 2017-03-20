@@ -24,7 +24,7 @@ type API struct {
 var server *API
 
 func (api *API) serve() {
-	log.Println("Listening on %s:%s", api.address, api.port)
+	log.Printf("Listening on %s:%d", api.address, api.port)
 	http.ListenAndServe(fmt.Sprintf("%s:%d", api.address, api.port), APIRouter(api.ctx))
 }
 

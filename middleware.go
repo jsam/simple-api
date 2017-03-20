@@ -64,7 +64,6 @@ func (c *Context) load() (int, error) {
 	}
 
 	c.rpm = uint64(stateMap["rpm"].(float64))
-	c.cache.state = stateMap["cache_state"].(map[string]interface{})
 
 	return delay, nil
 }
